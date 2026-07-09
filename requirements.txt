@@ -1,0 +1,10 @@
+tensorflow>=2.12
+segmentation-models
+keras-applications
+numpy
+opencv-python
+matplotlib
+scikit-learn
+tqdm
+pandas
+albumentations
