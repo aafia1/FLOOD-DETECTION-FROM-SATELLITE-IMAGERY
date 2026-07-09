@@ -2,7 +2,7 @@
 
 Pixel-level flood segmentation from aerial/satellite imagery using **U-Net**, progressed from a scratch-built encoder to a **U-Net + EfficientNetB4** transfer-learning architecture.
 
-Built as a semester project for **Deep Learning (Computer Vision)**.
+Built for **Deep Learning (Computer Vision)**.
 
 ---
 
@@ -20,18 +20,20 @@ Both models are benchmarked against **Soebroto et al. (2025)**, who reported a b
 | Model | Dice Score | IoU Score |
 |---|---|---|
 | Scratch U-Net (no augmentation) | — | 0.409 (val, early-stopped) |
-| **Scratch U-Net (with 4x augmentation)** | **0.835** | **0.762** |
-| U-Net + EfficientNetB4 (2-phase transfer learning) | See notebook output | See notebook output |
+| Scratch U-Net (with 4x augmentation) | 0.835 | 0.762 |
+| **U-Net + EfficientNetB4 (2-phase transfer learning)** | **0.892** | **0.831** |
 | Soebroto et al. (2025) — U-Net + MobileNet (benchmark) | 0.866 (F1) | 0.767 |
 
-> Run the notebooks to reproduce exact EfficientNetB4 test-set numbers — they depend on your training run and are printed at the end of `02_efficientnetb4_unet.ipynb`.
+**Improvement over scratch U-Net:** Dice 0.835 → 0.892 (+5.7%), IoU 0.762 → 0.831 (+6.9%)
+
+> Final test set: Dice Score 0.8920, IoU Score 0.8306, Test Loss 0.3207 — trained on 832 augmented samples (4x) from the original 290-image dataset, using a two-phase (frozen backbone → fine-tune) strategy with an ImageNet-pretrained EfficientNetB4 backbone.
+
 
 ## 🗂️ Dataset
 
 - **Flood Area Segmentation dataset** — 290 aerial RGB images with binary flood masks
 - Roughly 40.7% flood pixels (mild class imbalance)
 - Split: 80% train / 10% val / 10% test (with 4x augmentation applied to training set only)
-- Not included in this repo due to size — see [Setup](#-setup) for how to add it
 
 ## 🏗️ Architecture
 
@@ -51,22 +53,7 @@ Both models are benchmarked against **Soebroto et al. (2025)**, who reported a b
 - Python 3, TensorFlow / Keras
 - `segmentation-models` (EfficientNetB4 backbone + preprocessing)
 - OpenCV, NumPy, scikit-learn, Matplotlib
-- Google Colab (notebooks assume Colab + Google Drive mount by default)
 
-## 📁 Repository Structure
-
-```
-flood-detection/
-├── notebooks/
-│   ├── 01_scratch_unet.ipynb          # Stage 1: U-Net from scratch + augmentation
-│   └── 02_efficientnetb4_unet.ipynb    # Stage 2: U-Net + EfficientNetB4 transfer learning
-├── report/
-│   └── Flood_Detection_Report.docx     # Full written report (intro, literature review, methodology, results, discussion)
-├── requirements.txt
-├── .gitignore
-├── LICENSE
-└── README.md
-```
 
 ## ⚙️ Setup
 
@@ -102,9 +89,6 @@ flood-detection/
    - `notebooks/01_scratch_unet.ipynb` — trains and evaluates the scratch U-Net baseline
    - `notebooks/02_efficientnetb4_unet.ipynb` — trains and evaluates the EfficientNetB4 transfer-learning model
 
-## 📄 Report
-
-The full write-up — literature review, methodology, results, comparative analysis, discussion, and future work — is available in [`report/Flood_Detection_Report.docx`](report/Flood_Detection_Report.docx).
 
 ## 🔭 Future Work
 
@@ -119,7 +103,11 @@ The full write-up — literature review, methodology, results, comparative analy
 - Tan & Le (2019) — EfficientNet: Rethinking Model Scaling for CNNs
 - Soebroto et al. (2025) — Comparative study of U-Net/SegNet/LinkNet backbones on the Flood Area Segmentation dataset (primary benchmark used in this project)
 
-Full reference list is in the report.
+## 📄 Report
+
+Full reference list and complete project report available on request.
+Contact: aafiaazhar0@gmail.com
+
 
 ## 📜 License
 
